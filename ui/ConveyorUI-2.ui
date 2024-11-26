@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>530</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QGroupBox" name="groupBoxTemp">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>451</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Temperature °C</string>
+    </property>
+    <widget class="QWidget" name="TempGraph1" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>451</width>
+       <height>141</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(61, 56, 70);</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_Vb2">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>180</y>
+      <width>431</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Vibration 2</string>
+    </property>
+    <widget class="QWidget" name="VibGraph2" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>431</width>
+       <height>141</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(61, 56, 70);</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_Vb1">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>10</y>
+      <width>431</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Vibration 1</string>
+    </property>
+    <widget class="QWidget" name="VibGraph1" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>431</width>
+       <height>141</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(61, 56, 70);</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_Vb3">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>350</y>
+      <width>431</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Vibration 3</string>
+    </property>
+    <widget class="QWidget" name="VibGraph3" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>431</width>
+       <height>141</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(61, 56, 70);</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBoxSpeed">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>451</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Speed</string>
+    </property>
+    <widget class="QWidget" name="SpeedGraph1" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>451</width>
+       <height>141</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(61, 56, 70);</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_Menu">
+    <property name="geometry">
+     <rect>
+      <x>920</x>
+      <y>10</y>
+      <width>101</width>
+      <height>501</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Menu</string>
+    </property>
+    <widget class="QPushButton" name="TempBtn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>80</width>
+       <height>115</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <kerning>true</kerning>
+      </font>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(153, 193, 241);</string>
+     </property>
+     <property name="text">
+      <string notr="true"/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../icons/icons8-temperature-100.png</normaloff>../icons/icons8-temperature-100.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>50</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="shortcut">
+      <string/>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="SpeedBtn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>80</width>
+       <height>115</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(153, 193, 241);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../icons/icons8-speed-100.png</normaloff>../icons/icons8-speed-100.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>50</width>
+       <height>50</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="ExitBtn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>390</y>
+       <width>80</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(246, 97, 81);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../icons/icons8-exit-100.png</normaloff>../icons/icons8-exit-100.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>50</width>
+       <height>50</height>
+      </size>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_Status">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>350</y>
+      <width>451</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Status</string>
+    </property>
+    <widget class="QLabel" name="labelSpeed">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>35</y>
+       <width>41</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Speed : </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelTemp">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>35</y>
+       <width>91</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Temperature : </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelVb1">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>65</y>
+       <width>71</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Vibration 1 :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelVb2">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>97</y>
+       <width>91</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Vibration 2 :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelVb3">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>127</y>
+       <width>91</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Vibration 3 :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelDate">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>130</y>
+       <width>121</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Saturday, 09:11:2024</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelVb1V">
+     <property name="geometry">
+      <rect>
+       <x>91</x>
+       <y>65</y>
+       <width>131</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>x : 120, y : 180, z : 123</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelVb2V">
+     <property name="geometry">
+      <rect>
+       <x>91</x>
+       <y>97</y>
+       <width>131</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>x : 120, y : 180, z : 123</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelVb3V">
+     <property name="geometry">
+      <rect>
+       <x>91</x>
+       <y>127</y>
+       <width>131</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>x : 120, y : 180, z : 123</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelTempV">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>35</y>
+       <width>41</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>90</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelSpeedV">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>35</y>
+       <width>41</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>90</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
