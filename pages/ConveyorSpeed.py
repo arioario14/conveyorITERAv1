@@ -10,20 +10,21 @@
 import sys
 import os
 from time import sleep
+from dotenv import load_dotenv
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'))
 
 direction_in = "CW"
 speed_in = 0
-
 
 class Ui_SpeedWindow(object):
 
     # database connect 
     def db_connect(self):
-        db_path = "/home/rekinsa/Documents/conveyorITERAv1/db/conveyordb"
+        db_path = os.getenv('DATABASE_PATH_u')
 
         if not os.path.exists(db_path):
             print(f"Database file does not exist at: {db_path}")
