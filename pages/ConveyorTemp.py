@@ -9,20 +9,48 @@
 
 import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from time import sleep
 from dotenv import load_dotenv
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtCore import QTimer
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
+# from conveyor.sensor_actuator.sensor_temp import TemperatureSensor
+from conveyor.plot.temp_plot import TemperaturePlot
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'))
 
+
 temp_in_max = 0
 temp_in_min = 0
-
+        
 class Ui_TempWindow(object):
-
+    
+    def __init__(self):
+#         self.temp_sensor = TemperatureSensor()
+        self.temp_timer = QTimer()
+        self.temp_timer.timeout.connect(self.updateTemperatureLabel)
+        self.temp_timer.start(10) 
+        
+    
+    def getTemperature(self):
+        """Fetch the temperature value from the sensor."""
+        try:
+            return self.temp_plot.get_current_temp()
+        except Exception as e:
+            print(f"Error reading temperature: {e}")
+            return "N/A"
+        
+    def updateTemperatureLabel(self):
+        temp = self.getTemperature()  
+        if temp != "N/A":
+            self.labelTemp.setText(f"{temp:.2f}°C")
+        else:
+            self.labelTemp.setText("Sensor Error")
+    
     # database connect 
     def db_connect(self):
         db_path = os.getenv('DATABASE_PATH_u')
@@ -157,9 +185,17 @@ class Ui_TempWindow(object):
         self.groupBoxTemp_2 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBoxTemp_2.setGeometry(QtCore.QRect(450, 10, 451, 271))
         self.groupBoxTemp_2.setObjectName("groupBoxTemp_2")
+        
         self.TempGraph2 = QtWidgets.QWidget(self.groupBoxTemp_2)
         self.TempGraph2.setGeometry(QtCore.QRect(0, 20, 451, 251))
-        self.TempGraph2.setStyleSheet("background-color: rgb(61, 56, 70);")
+        
+        layout = QtWidgets.QVBoxLayout(self.groupBoxTemp_2)
+        self.temp_plot = TemperaturePlot(self.groupBoxTemp_2)
+        self.TempGraph2 = self.temp_plot
+        layout.addWidget(self.TempGraph2)
+        self.groupBoxTemp_2.setLayout(layout)
+        
+#         self.TempGraph2.setStyleSheet("background-color: rgb(61, 56, 70);")
         self.TempGraph2.setObjectName("TempGraph2")
         self.groupBoxMenu = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBoxMenu.setGeometry(QtCore.QRect(910, 10, 101, 501))
@@ -290,15 +326,18 @@ class Ui_TempWindow(object):
 
         self.retranslateUi(TempWindow)
         QtCore.QMetaObject.connectSlotsByName(TempWindow)
+        
+#         
 
     def retranslateUi(self, TempWindow):
         _translate = QtCore.QCoreApplication.translate
-        TempWindow.setWindowIcon(QIcon("/home/rekinsa/Documents/conveyorITERAv1/icons/icons-1.png"))
+#         TempWindow.setWindowIcon(QIcon("/home/rekinsa/Documents/conveyorITERAv1/icons/icons-1.png"))
         TempWindow.setWindowTitle(_translate("TempWindow", "Control - Temperature "))
         self.groupBoxTemp_2.setTitle(_translate("TempWindow", "Temperature Graph"))
         self.groupBoxMenu.setTitle(_translate("TempWindow", "Menu"))
         self.groupBoxTemp2.setTitle(_translate("TempWindow", "Temperature"))
-        self.labelTemp.setText(_translate("TempWindow", "20°C"))
+        print(self.getTemperature())
+        self.labelTemp.setText(_translate("TempWindow", "0°C"))
         self.BtnSave.setText(_translate("TempWindow", "    Save"))
         self.groupBoxMaxTemp.setTitle(_translate("TempWindow", "Max. Temp"))
         self.MaxValue.setText(_translate("TempWindow", str(temp_in_max)))
@@ -349,11 +388,11 @@ class Ui_TempWindow(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    app.setWindowIcon(QIcon("/home/rekinsa/Documents/conveyorITERAv1/icons/icons-1.png"))
+#     app.setWindowIcon(QIcon("/home/rekinsa/Documents/conveyorITERAv1/icons/icons-1.png"))
     TempWindow = QtWidgets.QMainWindow()
     ui = Ui_TempWindow()
     ui.setupUi(TempWindow)
     ui.center(TempWindow)
-    ui.db_connect()
+#     ui.db_connect()
     TempWindow.show()
     sys.exit(app.exec_())

@@ -15,8 +15,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from time import sleep
-from conveyor.plot.temp_plot import TemperaturePlot, TemperatureMonitorThread
-from conveyor.sensor_actuator.sensor_temp import TemperatureSensor
+from conveyor.plot.temp_plot import TemperaturePlot
+# from conveyor.sensor_actuator.sensor_temp import TemperatureSensor
+from conveyor.plot.encoder_plot import RPMPlot
+from conveyor.plot.plot_mpu import MPU6050Plotter
 
 
 class Ui_MonitoringWindow(object):
@@ -64,26 +66,49 @@ class Ui_MonitoringWindow(object):
         self.groupBoxSpeed = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBoxSpeed.setGeometry(QtCore.QRect(10, 10, 451, 161))
         self.groupBoxSpeed.setObjectName("groupBoxSpeed")
-        self.SpeedGraph1 = QtWidgets.QWidget(self.groupBoxSpeed)
+#         self.SpeedGraph1 = QtWidgets.QWidget(self.groupBoxSpeed)
+
+
+        # ===============
+        layout = QtWidgets.QVBoxLayout(self.groupBoxSpeed)
+        self.rpm_plot = RPMPlot(self.groupBoxSpeed)
+        self.SpeedGraph1 = self.rpm_plot
+        layout.addWidget(self.SpeedGraph1)
+        self.groupBoxSpeed.setLayout(layout)
+        
+#         self.SpeedGraph1 = RPMPlot(self.groupBoxSpeed)
         self.SpeedGraph1.setGeometry(QtCore.QRect(0, 20, 451, 141))
-        # self.SpeedGraph1.setStyleSheet("background-color: rgb(61, 56, 70);")
+        self.SpeedGraph1.setStyleSheet("background-color: rgb(61, 56, 70);")
         self.SpeedGraph1.setObjectName("SpeedGraph1")
 
         self.groupBoxTemp = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBoxTemp.setGeometry(QtCore.QRect(10, 180, 451, 161))
         self.groupBoxTemp.setObjectName("groupBoxTemp")
+        
+        layout = QtWidgets.QVBoxLayout(self.groupBoxTemp)
+        self.TempGraph1 = TemperaturePlot(self.groupBoxTemp)
+        layout.addWidget(self.TempGraph1)
+        self.groupBoxTemp.setLayout(layout)
 
+#         self.TempGraph1 = TemperaturePlot(self.groupBoxTemp)
         self.TempGraph1 = QtWidgets.QWidget(self.groupBoxTemp)
         self.TempGraph1.setGeometry(QtCore.QRect(0, 20, 451, 141))
-        # self.TempGraph1.setStyleSheet("background-color: rgb(61, 56, 70);")
+#         self.TempGraph1.setStyleSheet("background-color: rgb(61, 56, 70);")
         self.TempGraph1.setObjectName("TempGraph1")
 
         self.groupBoxVb1 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBoxVb1.setGeometry(QtCore.QRect(480, 10, 431, 161))
         self.groupBoxVb1.setObjectName("groupBoxVb1")
+        
+#         layout = QtWidgets.QVBoxLayout(self.groupBoxVb1)
+        self.mpu_plot = MPU6050Plotter(self.groupBoxVb1)
+        self.VibGraph1 = self.mpu_plot
+#         layout.addWidget(self.VibGraph1)
+#         self.groupBoxVb1.setLayout(layout)
+        
         self.VibGraph1 = QtWidgets.QWidget(self.groupBoxVb1)
         self.VibGraph1.setGeometry(QtCore.QRect(0, 20, 431, 141))
-        # self.VibGraph1.setStyleSheet("background-color: rgb(61, 56, 70);")
+#         self.VibGraph1.setStyleSheet("background-color: rgb(61, 56, 70);")
         self.VibGraph1.setObjectName("VibGraph1")
 
         self.groupBox_6 = QtWidgets.QGroupBox(self.centralwidget)
@@ -135,16 +160,24 @@ class Ui_MonitoringWindow(object):
         self.groupBoxVb2 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBoxVb2.setGeometry(QtCore.QRect(480, 180, 431, 161))
         self.groupBoxVb2.setObjectName("groupBoxVb2")
+        
+        self.mpu_plot = MPU6050Plotter(self.groupBoxVb2)
+        self.VibGraph2 = self.mpu_plot        
+            
         self.VibGraph2 = QtWidgets.QWidget(self.groupBoxVb2)
         self.VibGraph2.setGeometry(QtCore.QRect(0, 20, 431, 141))
-        self.VibGraph2.setStyleSheet("background-color: rgb(61, 56, 70);")
+#         self.VibGraph2.setStyleSheet("background-color: rgb(61, 56, 70);")
         self.VibGraph2.setObjectName("VibGraph2")
         self.groupBoxVb3 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBoxVb3.setGeometry(QtCore.QRect(480, 350, 431, 161))
         self.groupBoxVb3.setObjectName("groupBoxVb3")
+        
+        self.mpu_plot = MPU6050Plotter(self.groupBoxVb3)
+        self.VibGraph3 = self.mpu_plot
+        
         self.VibGraph3 = QtWidgets.QWidget(self.groupBoxVb3)
         self.VibGraph3.setGeometry(QtCore.QRect(0, 20, 431, 141))
-        self.VibGraph3.setStyleSheet("background-color: rgb(61, 56, 70);")
+#         self.VibGraph3.setStyleSheet("background-color: rgb(61, 56, 70);")
         self.VibGraph3.setObjectName("VibGraph3")
         self.groupBoxExecute = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBoxExecute.setGeometry(QtCore.QRect(10, 350, 461, 161))

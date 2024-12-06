@@ -9,18 +9,40 @@
 
 import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from time import sleep
 from dotenv import load_dotenv
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
+from conveyor.plot.encoder_plot import RPMPlot
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'))
 
 direction_in = "CW"
 speed_in = 0
 
+
 class Ui_SpeedWindow(object):
+    
+    def __init__(self):
+        self.en_timer = QTimer()
+        self.en_timer.timeout.connect(self.updateRPMLabel)
+        self.en_timer.start(100)
+        
+    def updateRPMLabel(self):
+        try:
+            rpm = self.rpm_plot.get_current_rpm() # Fetch the RPM directly from the encoder class
+            if rpm is not None:
+                self.labelSpeed.setText(f"{rpm:.2f} RPM")
+#                 print(f"{rpm:.2f} RPM")
+            else:
+                self.labelSpeed.setText("Encoder Error")
+        except Exception as e:
+            self.labelSpeed.setText("Error")
+            print(f"Error updating RPM: {e}")
+
 
     # database connect 
     def db_connect(self):
@@ -147,12 +169,28 @@ class Ui_SpeedWindow(object):
 
         self.centralwidget = QtWidgets.QWidget(SpeedWindow)
         self.centralwidget.setObjectName("centralwidget")
+        
+        
+        
         self.groupBox_Speed2 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox_Speed2.setGeometry(QtCore.QRect(450, 10, 451, 271))
         self.groupBox_Speed2.setObjectName("groupBox_Speed2")
+        
+        
+        
         self.SpeedGraph2 = QtWidgets.QWidget(self.groupBox_Speed2)
         self.SpeedGraph2.setGeometry(QtCore.QRect(0, 20, 451, 301))
-        self.SpeedGraph2.setStyleSheet("background-color: rgb(61, 56, 70);")
+#         self.SpeedGraph2.setStyleSheet("background-color: rgb(61, 56, 70);")
+        
+        layout = QtWidgets.QVBoxLayout(self.groupBox_Speed2)
+        self.rpm_plot = RPMPlot(self.groupBox_Speed2)
+        self.SpeedGraph2 = self.rpm_plot
+        layout.addWidget(self.SpeedGraph2)
+        self.groupBox_Speed2.setLayout(layout)            
+        
+        
+
+#         
         self.SpeedGraph2.setObjectName("SpeedGraph2")
         self.groupBoxMenu = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBoxMenu.setGeometry(QtCore.QRect(910, 10, 101, 501))
@@ -189,11 +227,12 @@ class Ui_SpeedWindow(object):
         # self.ExitBtn.clicked.connect(SpeedWindow.close)
         self.ExitBtn.clicked.connect(self.pop_up_exit)
 
-        self.groupBoxSpeed2_2 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBoxSpeed2_2.setGeometry(QtCore.QRect(450, 290, 451, 221))
-        self.groupBoxSpeed2_2.setObjectName("groupBoxSpeed2_2")
-        self.labelSpeed = QtWidgets.QLabel(self.groupBoxSpeed2_2)
+        self.groupBoxSpeed3 = QtWidgets.QGroupBox(self.centralwidget)
+        self.groupBoxSpeed3.setGeometry(QtCore.QRect(450, 290, 451, 221))
+        self.groupBoxSpeed3.setObjectName("groupBoxSpeed3")
+        self.labelSpeed = QtWidgets.QLabel(self.groupBoxSpeed3)
         self.labelSpeed.setGeometry(QtCore.QRect(0, 20, 451, 201))
+#         self.labelSpeed.setText("Initializing RPM...")
         font = QtGui.QFont()
         font.setFamily("Sans Serif")
         font.setPointSize(50)
@@ -300,8 +339,10 @@ class Ui_SpeedWindow(object):
         SpeedWindow.setWindowTitle(_translate("SpeedWindow", "Controls - Speed"))
         self.groupBox_Speed2.setTitle(_translate("SpeedWindow", "Speed Graph"))
         self.groupBoxMenu.setTitle(_translate("SpeedWindow", "Menu"))
-        self.groupBoxSpeed2_2.setTitle(_translate("SpeedWindow", "Speed"))
-        self.labelSpeed.setText(_translate("SpeedWindow", "20Rpm"))
+        self.groupBoxSpeed3.setTitle(_translate("SpeedWindow", "Speed"))
+        self.labelSpeed.setText(_translate("SpeedWindow", "0"))
+#         self.labelSpeed.setText(_translate("SpeedWindow", str(self.encoder.calculate_rpm())))
+
         self.groupBoxSpeed2.setTitle(_translate("SpeedWindow", "Speed"))
         self.SpeedValue.setText(_translate("SpeedWindow", str(speed_in)))
         self.groupBoxDirection.setTitle(_translate("SpeedWindow", "Direction"))
@@ -350,13 +391,15 @@ class Ui_SpeedWindow(object):
 
 
 if __name__ == "__main__":
-    while True:
-        app = QtWidgets.QApplication(sys.argv)
-        SpeedWindow = QtWidgets.QMainWindow()
-        ui = Ui_SpeedWindow()
-        ui.setupUi(SpeedWindow)
-        ui.center(SpeedWindow)
-        ui.db_connect()
-        SpeedWindow.show()
-        sys.exit(app.exec_())
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    SpeedWindow = QtWidgets.QMainWindow()
+    ui = Ui_SpeedWindow()
+    ui.setupUi(SpeedWindow)
+    ui.center(SpeedWindow)
+#         ui.db_connect()
+    SpeedWindow.show()
+    sys.exit(app.exec_())
+    
+    
 
